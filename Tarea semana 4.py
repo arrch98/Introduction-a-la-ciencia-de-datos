@@ -193,13 +193,20 @@ for degree in degrees:
         model.fit(X_poly_3, y)
         ridge_models_1[(degree, C)] = model
         ridge_coefficients[C] = model.coef_
-
+    
+    # Graficar el error promedio y desviación estándar frente a C para Ridge
+    plt.figure(figsize=(10, 6))
+    plt.errorbar(C_range, mean_scores_ridge, yerr=std_scores_ridge, capsize=5, color='orange')
+    plt.xscale('log')
+    plt.xlabel('Valores de C')
+    plt.ylabel('Error cuadrático medio')
+    plt.title('Validación cruzada de Ridge: Error vs C')
+    plt.show()
+    
     # Mostrar coeficientes con print o visualización estándar
     ridge_coef_df = pd.DataFrame(ridge_coefficients, index=poly_3.get_feature_names_out(['Feature_1', 'Feature_2']))
     print(f"\n Coeficientes de Ridge para grado {degree}:")
     print(ridge_coef_df)
-
-
 
   #  Generar una cuadrícula devalores para las características
 grid_range = np.linspace(-5, 5, 50)
